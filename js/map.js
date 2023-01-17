@@ -15,6 +15,48 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     accessToken: 'pk.eyJ1IjoiZGFuZmVyd2FuZyIsImEiOiJja2xpN2NndWgyYTI1MndzNDV1bjBrY2d2In0.WdslBmCdgObpqBD0e60C3g'
 }).addTo(mymap);
 
+const neverBeenToCountries = ["Ireland", "Iceland", "Norway", "Portugal", "Luxembourg", "Slovenia", "Croatia", "Romania", "Bulgaria", "Greece", "Malta", "Lativia", "Lithuania"]
+
+let colorratio = {
+    1:"#FFFFF0",
+    2:"blue",
+    3:"yellow",
+    4:"red"
+};
+
+let colorinput  = {
+    Netherlands: "1",
+    Belgium: "1",
+    France: "1",
+    Germany: "1",
+    Denmark: "1",
+    Sweden: "1",
+    Finland: "1",
+    Estonia: "1",
+    Poland: "1",
+    Czech: "1",
+    Slovakia: "1",
+    Hungary: "1",
+    Austria: "1",
+    Switzerland: "1",
+    Italy: "1",
+    Spain: "1",
+    UK: "1",
+};
+// Lightup Coutries that I have been
+L.geoJSON(europe31, {
+    style: function(feature) {
+      return {
+        fillColor: colorratio[colorinput[feature.id]] || "#9E9E9E", // Default color of countries.
+        fillOpacity: 0.5,
+        stroke: true,
+        color: "grey", // Lines in between countries.
+        weight: 3
+      };
+    }
+  }).bindPopup(function(layer) {
+    return layer.feature.properties.name;
+  }).addTo(mymap);
 // unuse
 // use a mix of renderers
 // var customPane = mymap.createPane("customPane");
@@ -111,7 +153,7 @@ routes.forEach((route) => {
     var midlatlng = getMidpoint(beginlatlng, endlatlng);
     var pathOptions = {
         color: 'rgba(30,144,255,1)',
-        weight: 3,
+        weight: 5,
         animate: 3000
     }
     pathOptions.animate = {
@@ -129,26 +171,8 @@ routes.forEach((route) => {
             'Q', midlatlng,
             endlatlng
         ], pathOptions).bindPopup(popupContent,
-            { maxWidth: 200 }).addTo(mymap);
-    
-    // curvedPath.on("click", function(e) {
-    //     // Add a pop-up to the polyline
-    //     var popup = L.popup()
-    //     .setLatLng(e.latlng)
-    //     .setContent("Information about the route")
-    //     .openOn(mymap);
-    // });
-    
-    
+            { maxWidth: 200 }).addTo(mymap); 
 
   });
-// TODO Add PopUp information of each route
 
-// Bind a click event listener to the polyline
-// flightPath.on("click", function(e) {
-//     // Add a pop-up to the polyline
-//     var popup = L.popup()
-//         .setLatLng(e.latlng)
-//         .setContent("Information about the route")
-//         .openOn(mymap);
-// });
+  // TODO Add PopUp information of each route
