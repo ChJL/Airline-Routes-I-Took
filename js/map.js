@@ -15,17 +15,11 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     accessToken: 'pk.eyJ1IjoiZGFuZmVyd2FuZyIsImEiOiJja2xpN2NndWgyYTI1MndzNDV1bjBrY2d2In0.WdslBmCdgObpqBD0e60C3g'
 }).addTo(mymap);
 
-
-// Define the coordinates for the airline route
-var flightPlanCoordinates = [
-    [52.3105, 4.7683],
-    [52.38, 13.52]
-];
-
-//use a mix of renderers
-var customPane = mymap.createPane("customPane");
-var canvasRenderer = L.canvas({pane:"customPane"});
-customPane.style.zIndex = 399; // put just behind the standard overlay pane which is at 400
+// unuse
+// use a mix of renderers
+// var customPane = mymap.createPane("customPane");
+// var canvasRenderer = L.canvas({pane:"customPane"});
+// customPane.style.zIndex = 399; // put just behind the standard overlay pane which is at 400
 
 const cities = {
     "Amsterdam": [52.3105, 4.7683],
@@ -54,7 +48,6 @@ const cities = {
     "Tayama": [36.3, 137.4833],
     "Kaohsiung": [22.6333, 120.2667],
     "Urumqi": [43.7930, 87.6298],
-
 }
 
 const routes = [
@@ -84,7 +77,9 @@ const routes = [
     {begin: "Taipei", end:"Paris"},
       ];
 
+// Get midpoint by begin and end latlng
 function getMidpoint(latlng1,latlng2) {
+    
     var offsetX = latlng2[1] - latlng1[1],
         offsetY = latlng2[0] - latlng1[0];
     var offsetX = latlng2[1] - latlng1[1],
@@ -107,6 +102,7 @@ function getMidpoint(latlng1,latlng2) {
     
 
 }
+// add routes
 routes.forEach((route) => {
     var begincity = route.begin;
     var endcity = route.end;
