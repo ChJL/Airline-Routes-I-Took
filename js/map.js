@@ -120,13 +120,26 @@ routes.forEach((route) => {
         easing: 'ease-in-out',
         direction: 'alternate'
     }
-
+    const popupContent = document.createElement("div")
+    popupContent.innerHTML = "<h3>"+begincity+" <---> "+endcity+"</h3>"
+    // const testcontent = begincity + "<---->" + endcity
     var curvedPath = L.curve(
         [
             'M', beginlatlng,
             'Q', midlatlng,
             endlatlng
-        ], pathOptions).addTo(mymap);
+        ], pathOptions).bindPopup(popupContent,
+            { maxWidth: 200 }).addTo(mymap);
+    
+    // curvedPath.on("click", function(e) {
+    //     // Add a pop-up to the polyline
+    //     var popup = L.popup()
+    //     .setLatLng(e.latlng)
+    //     .setContent("Information about the route")
+    //     .openOn(mymap);
+    // });
+    
+    
 
   });
 // TODO Add PopUp information of each route
