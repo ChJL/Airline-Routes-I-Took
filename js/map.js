@@ -1,21 +1,33 @@
 
 var mapOptions = {
     center: [52, 5],
-    zoom: 5
+    zoom: 3
   }
 
 var mymap = L.map('mapid', mapOptions);
 
+// https://docs.mapbox.com/api/maps/styles/#mapbox-styles 
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    id: 'mapbox/streets-v12',
+    id: 'mapbox/satellite-streets-v12',
+    // id: 'mapbox/dark-v10',
     tileSize: 512,
     zoomOffset: -1,
     accessToken: 'pk.eyJ1IjoiNWNoaWVoIiwiYSI6ImNsZDV6aW83YTA0Z2gzb2pvN2NlaGgwa2UifQ.1K0nOtmpdfmdNHEO2QVtGQ'
 }).addTo(mymap);
 
-const neverBeenToCountries = ["Ireland", "Iceland", "Norway", "Portugal", "Luxembourg", "Slovenia", "Croatia", "Romania", "Bulgaria", "Greece", "Malta", "Lativia", "Lithuania"]
+// Personal style url template
+
+// L.tileLayer('https://api.mapbox.com/styles/v1/{id}/{style_id}/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}', {
+//     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+//     id: '5chieh',
+//     style_id: 'clrcoqbxn009s01qq2z68cgin',
+//     accessToken: 'pk.eyJ1IjoiNWNoaWVoIiwiYSI6ImNsZDV6aW83YTA0Z2gzb2pvN2NlaGgwa2UifQ.1K0nOtmpdfmdNHEO2QVtGQ'
+// }).addTo(mymap);
+
+
+const neverBeenToCountries = ["Iceland", "Malta", "Lativia", "Lithuania"]
 
 let colorratio = {
     1:"#FFFFF0",
@@ -42,12 +54,21 @@ let colorinput  = {
     Italy: "1",
     Spain: "1",
     UK: "1",
+    Norway: "1",
+    Ireland: "1",
+    Slovenia: "1",
+    Portugal: "1",
+    Croatia: "1",
+    Romania: "1",
+    Bulgaria: "1",
+    Greece: "1",
+    Luxembourg: "1",
 };
 // Lightup Coutries that I have been
 L.geoJSON(europe31, {
     style: function(feature) {
       return {
-        fillColor: colorratio[colorinput[feature.id]] || "#9E9E9E", // Default color of countries.
+        fillColor: colorratio[colorinput[feature.id]] || "grey", // Default color of countries.
         fillOpacity: 0.5,
         stroke: true,
         color: "grey", // Lines in between countries.
@@ -65,58 +86,93 @@ L.geoJSON(europe31, {
 
 const cities = {
     "Amsterdam": [52.3105, 4.7683],
-    "Paris": [48.8566, 2.3522],
+    "Athens": [37.9838, 23.7275],
+    "Basel": [47.5596, 7.5806],
     "Berlin": [52.38, 13.52],
+    "Bucharest": [44.4268, 26.1025],
+    "Budapest": [47.4984, 19.0399],
     "Copenhagen": [55.6761, 12.5683],
-    "Helsinki": [60.1699, 24.9384],
-    "London": [51.1537, -0.1809],
+    "Dublin": [53.3498, -6.2603],
+    "Eindhoven": [51.4416, 5.4697],
     "Frankfurt": [50.1109, 8.6821],
     "Geneva": [46.2044, 6.1432],
-    "Zurich": [47.3769, 8.5417],
-    "Milan": [45.4642, 9.1900],
-    "Rome": [41.8955, 12.4823],
-    "Warsaw": [52.2297, 21.0122],
-    "Krakow": [50.0647, 19.9450],
-    "Seville": [37.3828, -5.973],
-    "Malaga": [36.7201, -4.4200],
-    "Budapest": [47.4984, 19.0399],
-    "Prague": [50.0755, 14.4378],
-    "Taipei": [25.0330, 121.5654],
-    "Tokyo": [35.6895, 139.6917],
-    "PhnomPenh": [11.5587, 104.9282],
-    "Naha": [26.2124, 127.6809],
-    "Shanghai": [31.2304, 121.4737],
-    "Sapporo": [43.0621, 141.3544],
-    "Tayama": [36.3, 137.4833],
+    "Helsinki": [60.1699, 24.9384],
     "Kaohsiung": [22.6333, 120.2667],
+    "Krakow": [50.0647, 19.9450],
+    "Lisbon": [38.7223, -9.1393],
+    "London": [51.1537, -0.1809],
+    "Los Angeles": [34.0522, -118.2437],
+    "Malaga": [36.7201, -4.4200],
+    "Milan": [45.4642, 9.1900],
+    "Naha": [26.2124, 127.6809],
+    "Paris": [48.8566, 2.3522],
+    "Phoenix": [33.4484, -112.0740],
+    "Phnom Penh": [11.5587, 104.9282],
+    "Prague": [50.0755, 14.4378],
+    "Rome": [41.8955, 12.4823],
+    "San Francisco": [37.7749, -122.4194],
+    "Santiago De Compostela": [42.8782, -8.5448],
+    "Sapporo": [43.0621, 141.3544],
+    "Seville": [37.3828, -5.973],
+    "Shanghai": [31.2304, 121.4737],
+    "Sofia": [42.6977, 23.3219],
+    "Stavanger": [58.9690, 5.7331],
+    "Stuttgart": [48.7758, 9.1829],
+    "Taipei": [25.0330, 121.5654],
+    "Tayama": [36.3, 137.4833],
+    "Thira": [36.3932, 25.4615],
+    "Tokyo": [35.6895, 139.6917],
     "Urumqi": [43.7930, 87.6298],
+    "Vancouver": [49.2827, -123.1207],
+    "Warsaw": [52.2297, 21.0122],
+    "Zagreb": [45.8150, 15.9819],
+    "Zurich": [47.3769, 8.5417]
 }
 
 const routes = [
+    {begin: "Amsterdam", end:"Athens"},
     {begin: "Amsterdam", end:"Berlin"},
     {begin: "Amsterdam", end:"Geneva"},
     {begin: "Amsterdam", end:"London"},
     {begin: "Amsterdam", end:"Seville"},
     {begin: "Amsterdam", end:"Malaga"},
-    {begin: "Amsterdam", end:"Helsinki"},
     {begin: "Amsterdam", end:"Copenhagen"},
     {begin: "Amsterdam", end:"Warsaw"},
-    {begin: "Amsterdam", end:"Krakow"},
     {begin: "Amsterdam", end:"Budapest"},
     {begin: "Amsterdam", end:"Prague"},
     {begin: "Amsterdam", end:"Milan"},
     {begin: "Amsterdam", end:"Rome"},
     {begin: "Amsterdam", end:"Zurich"},
     {begin: "Amsterdam", end:"Taipei"},
+    {begin: "Amsterdam", end:"Dublin"},
+    {begin: "Amsterdam", end:"San Francisco"},
+    {begin: "Amsterdam", end:"Stavanger"},
+    {begin: "Amsterdam", end:"Stuttgart"},
+    {begin: "Athens", end:"Thira"},
+    {begin: "Athens", end:"Frankfurt"},
+    {begin: "Basel", end:"Amsterdam"},
+    {begin: "Eindhoven", end:"Sofia"},
+    {begin: "Eindhoven", end:"Bucharest"},
+    {begin: "Eindhoven", end:"Zagreb"},
+    {begin: "Helsinki", end:"Amsterdam"},
+    {begin: "Kaohsiung", end:"Naha"},
+    {begin: "Krakow", end:"Amsterdam"},
+    {begin: "Los Angeles", end:"Phoenix"},
+    {begin: "Lisbon", end:"London"},
+    {begin: "Phoenix", end:"San Francisco"},
+    {begin: "San Francisco", end:"Vancouver"},
+    {begin: "Sofia", end:"Amsterdam"},
     {begin: "Taipei", end:"Paris"},
-    {begin: "Taipei", end:"PhnomPenh"},
+    {begin: "Taipei", end:"Phnom Penh"},
     {begin: "Taipei", end:"Tokyo"},
     {begin: "Taipei", end:"Shanghai"},
-    {begin: "Kaohsiung", end:"Naha"},
     {begin: "Taipei", end:"Sapporo"},
     {begin: "Taipei", end:"Tayama"},
     {begin: "Taipei", end:"Urumqi"},
     {begin: "Taipei", end:"Paris"},
+    {begin: "Vancouver", end:"Los Angeles"},
+    {begin: "Zurich", end:"Santiago De Compostela"},
+
       ];
 
 // Get midpoint by begin and end latlng
@@ -153,11 +209,11 @@ routes.forEach((route) => {
     var midlatlng = getMidpoint(beginlatlng, endlatlng);
     var pathOptions = {
         color: 'rgba(30,144,255,1)',
-        weight: 5,
-        animate: 3000
+        weight: 3,
+        animate: 5000
     }
     pathOptions.animate = {
-        duration: 3000,
+        duration: 5000,
         iterations: Infinity,
         easing: 'ease-in-out',
         direction: 'alternate'
