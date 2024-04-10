@@ -27,7 +27,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 // }).addTo(mymap);
 
 
-const neverBeenToCountries = ["Iceland", "Malta", "Lativia", "Lithuania"]
+const neverBeenToCountries = ["Iceland", "Malta"]
 
 let colorratio = {
     1:"#FFFFF0",
@@ -63,6 +63,8 @@ let colorinput  = {
     Bulgaria: "1",
     Greece: "1",
     Luxembourg: "1",
+    Latvia: "1",
+    Lithuania: "1",
 };
 // Lightup Coutries that I have been
 L.geoJSON(europe31, {
@@ -126,11 +128,15 @@ const cities = {
     "Vancouver": [49.2827, -123.1207],
     "Warsaw": [52.2297, 21.0122],
     "Zagreb": [45.8150, 15.9819],
-    "Zurich": [47.3769, 8.5417]
+    "Zurich": [47.3769, 8.5417],
+    "Birmingham": [52.4862, -1.8904],
+    "Riga": [56.9496, 24.1052],
+    "Vilnius": [54.6872, 25.2797],
 }
 
 const routes = [
     {begin: "Amsterdam", end:"Athens"},
+    {begin: "Amsterdam", end:"Birmingham"},
     {begin: "Amsterdam", end:"Berlin"},
     {begin: "Amsterdam", end:"Geneva"},
     {begin: "Amsterdam", end:"London"},
@@ -140,7 +146,6 @@ const routes = [
     {begin: "Amsterdam", end:"Warsaw"},
     {begin: "Amsterdam", end:"Budapest"},
     {begin: "Amsterdam", end:"Prague"},
-    {begin: "Amsterdam", end:"Milan"},
     {begin: "Amsterdam", end:"Rome"},
     {begin: "Amsterdam", end:"Zurich"},
     {begin: "Amsterdam", end:"Taipei"},
@@ -148,6 +153,7 @@ const routes = [
     {begin: "Amsterdam", end:"San Francisco"},
     {begin: "Amsterdam", end:"Stavanger"},
     {begin: "Amsterdam", end:"Stuttgart"},
+    {begin: "Amsterdam", end:"Riga"},
     {begin: "Athens", end:"Thira"},
     {begin: "Athens", end:"Frankfurt"},
     {begin: "Basel", end:"Amsterdam"},
@@ -159,6 +165,7 @@ const routes = [
     {begin: "Krakow", end:"Amsterdam"},
     {begin: "Los Angeles", end:"Phoenix"},
     {begin: "Lisbon", end:"London"},
+    {begin: "Milan", end:"Amsterdam"},
     {begin: "Phoenix", end:"San Francisco"},
     {begin: "San Francisco", end:"Vancouver"},
     {begin: "Sofia", end:"Amsterdam"},
@@ -172,7 +179,7 @@ const routes = [
     {begin: "Taipei", end:"Paris"},
     {begin: "Vancouver", end:"Los Angeles"},
     {begin: "Zurich", end:"Santiago De Compostela"},
-
+    {begin: "Vilnius", end:"Amsterdam"},
       ];
 
 // Get midpoint by begin and end latlng
